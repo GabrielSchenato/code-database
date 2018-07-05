@@ -23,5 +23,6 @@ abstract class AbstractRepository implements RepositoryInterface
     {        
         $class = $this->model();
         $this->model = new $class;
+        return $this->model;
     }
 }
