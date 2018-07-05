@@ -6,6 +6,7 @@ use Mockery as m;
 use CodePress\CodeDatabase\AbstractRepository;
 use CodePress\CodeDatabase\Contracts\RepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use CodePress\CodeDatabase\Models\Category;
 
 /**
  * Description of CategoryTest
@@ -14,6 +15,16 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  */
 class AbstractRepositoryTest extends AbstractTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->migrate();
+        Category::create([
+            'name' => 'name category',
+            'description' => 'description category'
+        ]);
+        echo Category::all()->first()->name;
+    }
 
     public function test_if_implements_repository_interface()
     {

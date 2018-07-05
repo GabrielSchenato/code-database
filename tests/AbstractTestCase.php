@@ -14,7 +14,7 @@ abstract class AbstractTestCase extends TestCase
 
     public function migrate()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../src/resources/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/resources/migrations');
     }
     
 
