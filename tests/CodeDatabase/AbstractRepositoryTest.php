@@ -134,5 +134,53 @@ class AbstractRepositoryTest extends AbstractTestCase
         
         $mockRepository->delete(0);
     }
+    
+    public function test_should_return_find_without_columns_success()
+    {
+        $mockRepository = m::mock(AbstractRepository::class);
+        $mockStd = m::mock(\stdClass::class);
+        $mockStd->id = 1;
+        $mockStd->name = 'name';
+        $mockStd->description = 'description';
+        
+        $mockRepository
+                ->shouldReceive('find')
+                ->with(1)
+                ->andReturn($mockStd);
+        
+        $this->assertInstanceOf(\stdClass::class, $mockRepository->find(1));
+    }
+    
+    public function test_should_return_find_with_columns_success()
+    {
+        $mockRepository = m::mock(AbstractRepository::class);
+        $mockStd = m::mock(\stdClass::class);
+        $mockStd->id = 1;
+        $mockStd->name = 'name';
+        
+        $mockRepository
+                ->shouldReceive('find')
+                ->with(1, ['id', 'name'])
+                ->andReturn($mockStd);
+        
+        $this->assertInstanceOf(\stdClass::class, $mockRepository->find(1, ['id', 'name']));
+    }
+    
+    /**
+     *  @expectedException \Illuminate\Database\Eloquent\ModelNotFoundException
+     */    
+    public function test_should_return_find_fail()
+    {
+        $mockRepository = m::mock(AbstractRepository::class);
+        $throw = new ModelNotFoundException();
+        $throw->setModel(\stdClass::class);
+        
+        $mockRepository
+                ->shouldReceive('find')
+                ->with(0)
+                ->andThrow($throw);
+        
+        $mockRepository->find(0);
+    }
 
 }
