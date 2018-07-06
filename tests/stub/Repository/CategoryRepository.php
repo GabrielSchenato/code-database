@@ -12,13 +12,7 @@ use CodePress\CodeDatabase\Models\Category;
  */
 class CategoryRepository extends AbstractRepository
 {
-    
-
-
-    public function update(array $data, int $id)
-    {
-        
-    }
+   
 
     public function delete(int $id)
     {
