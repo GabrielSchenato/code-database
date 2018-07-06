@@ -44,7 +44,7 @@ abstract class AbstractRepository implements RepositoryInterface
     
     public function update(array $data, int $id)
     {
-        $model = $this->model->findOrFail($id);
+        $model = $this->find($id);
         $model->update($data);
         return $model;
     }
@@ -52,7 +52,12 @@ abstract class AbstractRepository implements RepositoryInterface
 
     public function delete(int $id)
     {
-        $model = $this->model->findOrFail($id);
+        $model = $this->find($id);
         return $model->delete();
+    }
+
+    public function find(int $id, $colums = array('*'))
+    {
+        return $this->model->findOrFail($id, $colums);
     }
 }

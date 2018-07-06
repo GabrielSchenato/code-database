@@ -14,10 +14,6 @@ class CategoryRepository extends AbstractRepository
 {
   
 
-    public function find(int $id, $colums = array('*'))
-    {
-        
-    }
 
     public function findBy($field, $value, $colums = array('*'))
     {
