@@ -32,4 +32,8 @@ abstract class AbstractRepository implements RepositoryInterface
         return $this->model;
     }
 
+    public function all($colums = array('*'))
+    {
+        return $this->model->get($colums);
+    }
 }
