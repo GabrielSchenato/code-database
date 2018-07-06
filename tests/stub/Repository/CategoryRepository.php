@@ -13,10 +13,7 @@ use CodePress\CodeDatabase\Models\Category;
 class CategoryRepository extends AbstractRepository
 {
     
-    public function create(array $data)
-    {
-        
-    }
+
 
     public function update(array $data, int $id)
     {
