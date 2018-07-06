@@ -12,13 +12,6 @@ use CodePress\CodeDatabase\Models\Category;
  */
 class CategoryRepository extends AbstractRepository
 {
-  
-
-
-    public function findBy($field, $value, $colums = array('*'))
-    {
-        
-    }
     
     public function model()
     {
