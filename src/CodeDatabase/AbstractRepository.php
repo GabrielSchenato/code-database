@@ -36,19 +36,18 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         return $this->model->get($colums);
     }
-    
+
     public function create(array $data)
     {
         return $this->model->create($data);
     }
-    
+
     public function update(array $data, int $id)
     {
         $model = $this->find($id);
         $model->update($data);
         return $model;
     }
-    
 
     public function delete(int $id)
     {
@@ -65,4 +64,5 @@ abstract class AbstractRepository implements RepositoryInterface
     {
         return $this->model->where($field, '=', $value)->get($colums);
     }
+
 }
