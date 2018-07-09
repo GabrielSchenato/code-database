@@ -39,6 +39,14 @@ class CategoryRepositoryCriteriaTest extends AbstractTestCase
         $result = $this->repository->getCriteriaCollection();
         $this->assertCount(0, $result);
     }
+    
+    public function test_can_add_criteria()
+    {
+        $mockCriteria = m::mock(CriteriaInterface::class);
+        $result = $this->repository->addCriteria($mockCriteria);
+        $this->assertInstanceOf(CategoryRepository::class, $result);
+        $this->assertCount(1, $this->repository->getCriteriaCollection());
+    }
 
 //    public function test_can_model()
 //    {
