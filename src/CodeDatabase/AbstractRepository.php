@@ -19,6 +19,8 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
      * @var \Illuminate\Database\Eloquent\Model 
      */
     protected $model;
+    
+    protected $criteriaCollection = [];
 
     public function __construct()
     {
@@ -74,7 +76,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
 
     public function getCriteriaCollection()
     {
-        
+        return $this->criteriaCollection;
     }
 
     public function getByCriteria(CriteriaInterface $criteriaInterface)
