@@ -21,6 +21,7 @@ class FindByNameAndDescriptionTest extends AbstractTestCase
      * @var CategoryRepository 
      */
     private $repository;
+
     /**
      * @var FindByNameAndDescription 
      */
@@ -39,14 +40,14 @@ class FindByNameAndDescriptionTest extends AbstractTestCase
     {
         $this->assertInstanceOf(CriteriaInterface::class, $this->criteria);
     }
-    
+
     public function test_if_apply_returns_querybuilder()
     {
         $class = $this->repository->model();
         $result = $this->criteria->apply(new $class, $this->repository);
         $this->assertInstanceOf(Builder::class, $result);
     }
-    
+
     public function test_if_apply_returns_data()
     {
         $class = $this->repository->model();
