@@ -7,6 +7,7 @@ use CodePress\CodeDatabase\Repository\CategoryRepository;
 use CodePress\CodeDatabase\Models\Category;
 use CodePress\CodeDatabase\Contracts\CriteriaCollectionInterface;
 use CodePress\CodeDatabase\Contracts\CriteriaInterface;
+use CodePress\CodeDatabase\Criteria\FindByNameAndDescription;
 
 /**
  * Description of CategoryTest
@@ -46,6 +47,19 @@ class CategoryRepositoryCriteriaTest extends AbstractTestCase
         $result = $this->repository->addCriteria($mockCriteria);
         $this->assertInstanceOf(CategoryRepository::class, $result);
         $this->assertCount(1, $this->repository->getCriteriaCollection());
+    }
+    
+    public function test_can_getbycriteria()
+    {
+        $criteria = new FindByNameAndDescription('Category 1', 'Description 1');
+        $repository = $this->repository->getByCriteria($criteria);
+        $this->assertInstanceOf(CategoryRepository::class, $repository);
+        
+        $result = $repository->all();
+        $this->assertCount(1, $result);
+        $result = $result->first();
+        $this->assertEquals($result->name, 'Category 1');
+        $this->assertEquals($result->description, 'Description 1');
     }
 
 //    public function test_can_model()
