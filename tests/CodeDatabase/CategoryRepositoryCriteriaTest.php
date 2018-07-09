@@ -10,6 +10,7 @@ use CodePress\CodeDatabase\Contracts\CriteriaInterface;
 use CodePress\CodeDatabase\Criteria\FindByNameAndDescription;
 use CodePress\CodeDatabase\Criteria\FindByDescription;
 use CodePress\CodeDatabase\Criteria\OrderDescByName;
+use CodePress\CodeDatabase\Criteria\FindByName;
 
 /**
  * Description of CategoryTest
@@ -98,43 +99,36 @@ class CategoryRepositoryCriteriaTest extends AbstractTestCase
         $this->assertEquals($result[0]->name, 'Category Um');
         $this->assertEquals($result[1]->name, 'Category Dois');
     }
+    
+    /**
+     *  @expectedException \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function test_can_find_category_with_criteria_and_exception()
+    {
+        $this->createCategoryDescription();
+        
+        $criteria1 = new FindByDescription('Description');
+        $criteria2 = new FindByName('Category Dois');
+        
+        $this->repository
+                ->addCriteria($criteria1)
+                ->addCriteria($criteria2);
+        $this->repository->find(5);
+    }
 
-//    public function test_can_find_category()
-//    {
-//        $result = $this->repository->find(1);
-//        $this->assertInstanceOf(Category::class, $result);
-//    }
-//
-//    public function test_can_find_category_with_colums()
-//    {
-//        $result = $this->repository->find(1, ['name']);
-//        $this->assertInstanceOf(Category::class, $result);
-//        $this->assertNull($result->description);
-//    }
-//
-//    /**
-//     * @expectedException \Illuminate\Database\Eloquent\ModelNotFoundException
-//     */
-//    public function test_can_find_category_fail()
-//    {
-//        $this->repository->find(10);
-//    }
-//
-//    public function test_can_find_categories()
-//    {
-//        $result = $this->repository->findBy('name', 'Category 1');
-//        $this->assertCount(1, $result);
-//        $this->assertInstanceOf(Category::class, $result[0]);
-//        $this->assertEquals('Category 1', $result[0]->name);
-//
-//        $result = $this->repository->findBy('name', 'Category 10');
-//        $this->assertCount(0, $result);
-//
-//        $result = $this->repository->findBy('name', 'Category 1', ['name']);
-//        $this->assertCount(1, $result);
-//        $this->assertInstanceOf(Category::class, $result[0]);
-//        $this->assertNull($result[0]->description);
-//    }
+    public function test_can_find_category_with_criteria()
+    {
+        $this->createCategoryDescription();
+        
+        $criteria1 = new FindByDescription('Description');
+        $criteria2 = new FindByName('Category Um');
+        
+        $this->repository
+                ->addCriteria($criteria1)
+                ->addCriteria($criteria2);
+        $result = $this->repository->find(5);
+        $this->assertEquals($result->name, 'Category Um');
+    }
 
     private function createCategoryDescription()
     {
@@ -147,6 +141,7 @@ class CategoryRepositoryCriteriaTest extends AbstractTestCase
             'description' => 'Description'
         ]);
     }
+    
     private function createCategory()
     {
         Category::create([

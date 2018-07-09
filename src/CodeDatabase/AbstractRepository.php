@@ -57,6 +57,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
 
     public function find(int $id, $colums = array('*'))
     {
+        $this->applyCriteria();
         return $this->model->findOrFail($id, $colums);
     }
 
