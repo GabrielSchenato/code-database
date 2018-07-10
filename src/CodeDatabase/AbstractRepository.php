@@ -16,6 +16,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
 
     protected $model;
     protected $criteriaCollection = [];
+    protected $isIgnoreCriteria = false;
 
     public function __construct()
     {
@@ -89,6 +90,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
         foreach ($this->getCriteriaCollection() as $criteria) {
             $this->model = $criteria->apply($this->model, $this);
         }
+        return $this;
+    }
+
+    public function ignoreCriteria(bool $isIgnore)
+    {
+        $this->isIgnoreCriteria = $isIgnore;
         return $this;
     }
 
