@@ -102,5 +102,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
         $this->isIgnoreCriteria = $isIgnore;
         return $this;
     }
+    
+    public function clearCriteria()
+    {
+        $this->criteriaCollection = [];
+        $this->makeModel();
+        return $this;
+    }
 
 }
