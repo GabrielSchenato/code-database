@@ -1,13 +1,20 @@
 {
     "name": "schenato/code-database",
+    "description": "Schenato.me repository pattern library based in Laravel",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "repository",
+        "criteria"
+    ],
     "authors": [
         {
             "name": "Gabriel Schenato",
             "email": "gabriel.schenato@inovadora.com.br"
         }
     ],
+    "homepage": "https://github.com/schenato",
     "require": {
         "php": ">=7.1",
         "illuminate/database": "^5.6"
