@@ -68,6 +68,25 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
         return $this->model->where($field, '=', $value)->get($colums);
     }
 
+    public function deleted($colums = array('*'))
+    {
+        $this->applyCriteria();
+        return $this->model->onlyTrashed()->get($colums);
+    }
+
+    public function restore(int $id)
+    {
+        $this->applyCriteria();
+        $model = $this->findWithTrashed($id);
+        return $model->restore();
+    }
+
+    public function findWithTrashed(int $id, $colums = array('*'))
+    {
+        $this->applyCriteria();
+        return $this->model->withTrashed()->find($id, $colums);
+    }
+
     public function addCriteria(CriteriaInterface $criteria)
     {
         $this->criteriaCollection[] = $criteria;
@@ -102,7 +121,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaCollec
         $this->isIgnoreCriteria = $isIgnore;
         return $this;
     }
-    
+
     public function clearCriteria()
     {
         $this->criteriaCollection = [];
