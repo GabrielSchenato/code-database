@@ -16,7 +16,6 @@ abstract class AbstractTestCase extends TestCase
     {
         $this->loadMigrationsFrom(__DIR__ . '/resources/migrations');
     }
-    
 
     /**
      * Define environment setup.
@@ -27,12 +26,13 @@ abstract class AbstractTestCase extends TestCase
     protected function getEnvironmentSetUp($app)
     {
         // Setup default database to use sqlite :memory:
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
+        /* $app['config']->set('database.default', 'testbench');
+          $app['config']->set('database.connections.testbench', [
+          'driver' => 'sqlite',
+          'database' => ':memory:',
+          'prefix' => '',
+          ]); */
+        config(['database' => require __DIR__ . '/config/database.php']);
     }
 
 }
